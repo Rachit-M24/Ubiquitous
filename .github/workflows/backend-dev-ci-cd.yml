@@ -1,0 +1,78 @@
+name: Backend CI/CD
+
+on:
+  push:
+    branches:
+      - developmentBackend
+
+  workflow_dispatch:
+    inputs:
+      deploy_to:
+        description: "Backend Deployment Target"
+        required: true
+        type: choice
+        options:
+          - main
+
+jobs:
+  ci_dev:
+    if: github.ref == 'refs/heads/developmentBackend' && github.event_name == 'push'
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - run: dotnet restore
+      - run: dotnet build -c Release
+      - run: dotnet test --no-build
+
+  deploy_dev:
+    needs: ci_dev
+    runs-on: windows-latest
+    environment:
+      name: backend-development
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Dev API
+        run: |
+          echo "Deploying .NET API to Development"
+          # real commands like ssh or Azure WebApp deploy
+
+  ci_main:
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_to == 'main'
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - run: dotnet restore
+      - run: dotnet build -c Release
+      - run: dotnet test --no-build
+
+  deploy_main:
+    needs: ci_main
+    runs-on: windows-latest
+    environment:
+      name: backend-production  # protect this with approval in GitHub settings
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Deploy Backend API to PROD
+        run: |
+          echo "Deploying backend to PROD"
+          # real commands like ssh or Azure WebApp deploy
