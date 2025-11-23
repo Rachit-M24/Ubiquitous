@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{1AE8ACA6-933B-BF2A-3671-3E2EAC007D16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ubiquitous.Repository", "Backend\Ubiquitous.Repository\Ubiquitous.Repository.csproj", "{F0FA1DFF-43BB-469E-BE4F-AECCD9A56D31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ubiquitous.Repository", "Ubiquitous.Repository\Ubiquitous.Repository.csproj", "{F0FA1DFF-43BB-469E-BE4F-AECCD9A56D31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
