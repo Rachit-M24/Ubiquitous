@@ -26,10 +26,12 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      - run: dotnet restore Backend/Ubiquitous.sln
-      - run: dotnet build Backend/Ubiquitous.sln -c Release
-      - run: dotnet test Backend/Ubiquitous.sln --no-build
-
+      - run: |
+          cd Backend
+          dotnet restore Ubiquitous.sln
+          dotnet build Ubiquitous.sln -c Release
+          dotnet test Ubiquitous.sln --no-build
+          
   deploy_dev:
     needs: ci_dev
     runs-on: windows-latest
@@ -57,10 +59,12 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      - run: dotnet restore Backend/Ubiquitous.sln
-      - run: dotnet build Backend/Ubiquitous.sln -c Release
-      - run: dotnet test Backend/Ubiquitous.sln --no-build
-
+      - run: |
+          cd Backend
+          dotnet restore Ubiquitous.sln
+          dotnet build Ubiquitous.sln -c Release
+          dotnet test Ubiquitous.sln --no-build
+     
   deploy_main:
     needs: ci_main
     runs-on: windows-latest
